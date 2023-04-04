@@ -9,7 +9,9 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - postgres01:/var/lib/postgresql/data
-      - ./db:/docker-entrypoint-initdb.d
+      - ./db/migrations:/docker-entrypoint-initdb.d
+      - ./db/config/my-postgres.conf:/etc/postgresql/postgresql.conf
+      - ./db/config/my-pg_hba.conf:/etc/postgresql/pg_hba.conf
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
       interval: 10s
@@ -23,6 +25,7 @@ services:
     volumes:
       - rabbitdata:/var/lib/rabbitmq/
       - rabbitlogs:/var/log/rabbitmq
+
 volumes:
   postgres01: {}
   rabbitdata: {}

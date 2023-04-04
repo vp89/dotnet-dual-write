@@ -11,3 +11,5 @@ CREATE TABLE public.orders (
 
 ALTER TABLE IF EXISTS public.orders
     OWNER to postgres;
+
+CREATE PUBLICATION test_pub FOR TABLE orders;
