@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:15.2
+    ports:
+      - 54321:5432
+    user: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres01:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  rabbit:
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitdata:/var/lib/rabbitmq/
+      - rabbitlogs:/var/log/rabbitmq
+volumes:
+  postgres01: {}
+  rabbitdata: {}
+  rabbitlogs: {}
