@@ -9,7 +9,13 @@ CREATE TABLE public.orders (
     amount DECIMAL(11,2) NOT NULL
 );
 
-ALTER TABLE IF EXISTS public.orders
+CREATE TABLE public.orders_v2 (
+    id BIGINT GENERATED ALWAYS AS IDENTITY,
+    amount DECIMAL(11,2) NOT NULL
+);
+
+
+ALTER TABLE IF EXISTS public.orders_v2
     OWNER to postgres;
 
-CREATE PUBLICATION test_pub FOR TABLE orders;
+CREATE PUBLICATION test_pub;

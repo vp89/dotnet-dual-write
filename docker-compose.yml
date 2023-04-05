@@ -12,6 +12,10 @@ services:
       - ./db/migrations:/docker-entrypoint-initdb.d
       - ./db/config/my-postgres.conf:/etc/postgresql/postgresql.conf
       - ./db/config/my-pg_hba.conf:/etc/postgresql/pg_hba.conf
+    command:
+      - "postgres"
+      - "-c"
+      - "config_file=/etc/postgresql/postgresql.conf"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
       interval: 10s
